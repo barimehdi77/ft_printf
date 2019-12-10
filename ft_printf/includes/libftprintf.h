@@ -15,10 +15,10 @@
 #include <stdio.h>
 
 
-int     ft_printf(const char *, ...);
+int     ft_printf(const char *s, ...);
 void    ft_addespace(int size, char c);
 void    ft_call_arg(va_list arg, char *s);
-char    ft_check_arg(char *s);
+char    ft_check_arg(const char *s);
 void    ft_call_s(va_list arg, char *s);
 void    ft_call_c(va_list arg, char *s);
 void    ft_call_x(va_list arg, char *s);
@@ -33,9 +33,9 @@ void    ft_check_point(va_list arg, char *s);
 int     ft_skip(char *s);
 char    *ft_decimaltoHEX(int dic);
 char    *ft_decimaltohex(int dic);
-void    ft_print_addriss(int dic);
+void    ft_print_hex(const char *s, int dic);
 char    *ft_addriss(int dic);
-void    ft_call_zero_s(va_list arg, char *s);
+void    ft_call_point_s(va_list arg, char *s);
 void    ft_call_zero_c(va_list arg, char *s);
 void    ft_call_zero_number(va_list arg, char *s);
 void    ft_call_zero_x(va_list arg, char *s);
