@@ -84,8 +84,19 @@ char *ft_addriss(int dic)
 	return (addriss);
 }
 
-void  ft_print_addriss(int dic)
+void  ft_print_hex(const char *s, int dic)
 {
-	ft_putstr("0x7fff");
-	ft_putstr(ft_addriss(dic));
+	char *ptr;
+
+	if (ft_check_arg(s) == 'p')
+	{
+		ptr = ft_addriss(dic);
+		ft_putstr("0x7fff");
+	}
+    else if (ft_check_arg(s) == 'x')
+        ptr = ft_decimaltohex(dic);
+    else if (ft_check_arg(s) == 'X')
+        ptr = ft_decimaltoHEX(dic);
+	ft_putstr(ptr);
+	free(ptr);
 }

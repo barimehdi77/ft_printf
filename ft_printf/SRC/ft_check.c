@@ -38,13 +38,15 @@ void    ft_check_zero(va_list arg, char *s)
     if (ft_check_arg(s) == 's')
         ft_call_zero_s(arg, s);
     else if (ft_check_arg(s) == 'c')
-            ft_call_zero_c(arg, s);
+        ft_call_zero_c(arg, s);
+    else if (ft_check_arg(s) == '.')
+        ft_call_point_s(arg, s);
     else if (ft_check_arg(s) == 'd' || ft_check_arg(s) == 'i')
         ft_call_zero_number(arg, s);
     else if (ft_check_arg(s) == 'u')
-        ft_call_number(arg, s);
+        ft_call_zero_number(arg, s);
     else if (ft_check_arg(s) == 'p')
-        ft_print_addriss(va_arg(arg, int));
+        ft_print_hex(s, va_arg(arg, int));
     else if (ft_check_arg(s) == 'x')
         ft_call_zero_x(arg, s);
     else if (ft_check_arg(s) == 'X')
@@ -96,7 +98,7 @@ void ft_check_star(va_list arg, char *s)
 void    ft_check_point(va_list arg, char *s)
 {
     if (ft_check_arg(s) == 's')
-        ft_call_zero_s(arg, s);
+        ft_call_point_s(arg, s);
     else if (ft_check_arg(s) == 'c')
         ft_putchar(va_arg(arg, int));
     else if (ft_check_arg(s) == 'd' || ft_check_arg(s) == 'i')
@@ -104,7 +106,7 @@ void    ft_check_point(va_list arg, char *s)
     else if (ft_check_arg(s) == 'u')
         ft_call_number(arg, s);
     else if (ft_check_arg(s) == 'p')
-        ft_print_addriss(va_arg(arg, int));
+        ft_print_hex(s, va_arg(arg, int));
     else if (ft_check_arg(s) == 'x')
         ft_call_zero_x(arg, s);
     else if (ft_check_arg(s) == 'X')

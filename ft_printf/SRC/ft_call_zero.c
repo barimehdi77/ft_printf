@@ -16,16 +16,15 @@
 void ft_call_zero_s(va_list arg, char *s)
 {
     int size;
-    int i;
     char *valofarg;
 
-    i = -1;
-    size = ft_atoi(s);
+    size = 0;
     valofarg = va_arg(arg, char *);
     if (valofarg == NULL)
         ft_putstr("(null)");
-    while (size-- != 0 && valofarg[++i] != '\0')
-        ft_putchar(valofarg[i]);
+    size = ft_atoi(s) - ft_strlen(valofarg);
+    ft_addespace(size, '0');
+    ft_putstr(valofarg);
 }
 
 void ft_call_zero_c(va_list arg, char *s)

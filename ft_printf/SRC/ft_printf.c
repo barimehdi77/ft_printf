@@ -37,11 +37,11 @@ int ft_printf(const char *s, ...)
             else if (*(s + i) == 's')
                 ft_putstr(va_arg(arg, char *));
             else if (*(s + i) == 'p')
-                ft_print_addriss(va_arg(arg, int));
+                ft_print_hex((char *)(s + i - 1),va_arg(arg, int));
             else if(*(s + i) == 'X')
-                ft_putstr(ft_decimaltoHEX(va_arg(arg, int)));
+                ft_print_hex((char *)(s + i - 1),va_arg(arg, int));
             else if(*(s + i) == 'x')
-                ft_putstr(ft_decimaltohex(va_arg(arg, int)));
+                ft_print_hex((char *)(s + i - 1),va_arg(arg, int));
             else if (ft_isdigit(*(s + i)))
                 ft_check_espace(arg, (char *)s + i);
             else if (*(s + i) == '0')
@@ -65,6 +65,8 @@ int ft_printf(const char *s, ...)
 int main()
 {
     char c = 'M';
-    ft_printf("--%-100s--\n","777777777");
-    printf("--%-100s--","777777777");
+    ft_printf("--%010.2s--\n","test");
+    printf("--%010.2s--\n","test");
+    /*ft_printf("-x-%010x-s-%010s-d-%010d-X-%010X-u-%010u-i-%010i-c-%010c-p-%010p\n",77,"Bari mehdi77", 777,120,7777,-77,c,&c);
+    printf("-x-%010x-s-%010s-d-%010d-X-%010X-u-%010u-i-%010i-c-%010c-p-%010p\n",77,"Bari mehdi77", 777,120,7777,-77,c,&c);*/
 }

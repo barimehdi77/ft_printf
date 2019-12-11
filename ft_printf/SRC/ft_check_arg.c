@@ -12,7 +12,7 @@
 
 #include "../includes/libftprintf.h"
 
-char    ft_check_arg(char *s)
+char    ft_check_arg(const char *s)
 {
     char c;
 
@@ -26,6 +26,8 @@ char    ft_check_arg(char *s)
         else if (*s == 'd' || *s == 'i')
             return (c = *s);
         else if (*s == 'u')
+            return (c = *s);
+        else if (*s == '.')
             return (c = *s);
         else if (*s == 'x')
             return (c = *s);
