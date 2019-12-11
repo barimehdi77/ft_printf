@@ -36,6 +36,8 @@ char    *ft_decimaltohex(int dic);
 void    ft_print_hex(const char *s, int dic);
 char    *ft_addriss(int dic);
 void    ft_call_point_s(va_list arg, char *s);
+void    ft_call_zero_s(va_list arg, char *s);
+int     ft_numberofzeros(char *valofarg, char *s);
 void    ft_call_zero_c(va_list arg, char *s);
 void    ft_call_zero_number(va_list arg, char *s);
 void    ft_call_zero_x(va_list arg, char *s);
