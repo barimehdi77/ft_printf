@@ -13,14 +13,14 @@
 #include "../libft/libft.h"
 #include "../includes/libftprintf.h"
 
-void    ft_addespace(int size, char c)
+void	ft_addespace(int size, char c, t_print *val)
 {
-    if (size > 0)
-    {
-        while (size)
-        {
-            ft_putchar(c);
-            size--;
-        }
-    }
+	if (size > 0)
+	{
+		while (size)
+		{
+			ft_putchar(c, val);
+			size--;
+		}
+	}
 }

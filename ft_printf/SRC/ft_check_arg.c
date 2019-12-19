@@ -12,31 +12,31 @@
 
 #include "../includes/libftprintf.h"
 
-char    ft_check_arg(const char *s)
+char	ft_check_arg(const char *s)
 {
-    char c;
+	char	c;
 
-    while (*s)
-    {
-        s++;
-        if (*s == 'c')
-            return (c = *s);
-        else if (*s == 's')
-            return (c = *s);
-        else if (*s == 'd' || *s == 'i')
-            return (c = *s);
-        else if (*s == 'u')
-            return (c = *s);
-        else if (*s == '.')
-            return (c = *s);
-        else if (*s == 'x')
-            return (c = *s);
-        else if (*s == 'X')
-            return (c = *s);
-        else if (*s == 'p')
-            return (c = *s);
-        else if (*s == '%')
-            return (c = *s);
-    }
-    return (0);
+	while (*s)
+	{
+		s++;
+		if (*s == 'c')
+			return (c = *s);
+		else if (*s == 's')
+			return (c = *s);
+		else if (*s == 'd' || *s == 'i')
+			return (c = *s);
+		else if (*s == 'u')
+			return (c = *s);
+		else if (*s == '.')
+			return (c = *s);
+		else if (*s == 'x')
+			return (c = *s);
+		else if (*s == 'X')
+			return (c = *s);
+		else if (*s == 'p')
+			return (c = *s);
+		else if (*s == '%')
+			return (c = *s);
+	}
+	return (0);
 }

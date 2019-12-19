@@ -12,8 +12,8 @@
 
 #include "libft.h"
 
-void	ft_putendl(const char *s)
+void	ft_putendl(const char *s, t_print	*val)
 {
-	ft_putstr(s);
-	ft_putchar('\n');
+	ft_putstr(s, val);
+	ft_putchar('\n', val);
 }

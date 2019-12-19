@@ -13,90 +13,110 @@
 #include "../libft/libft.h"
 #include "../includes/libftprintf.h"
 
-char *ft_decimaltoHEX(int dic)
+char	*ft_decimaltoupperx(unsigned int dic)
 {
-	char *hexadecimal;
-	int i;
-	int rest;
+	char	*hexadecimal;
+	int		i;
+	int		rest;
 
 	i = 0;
-    hexadecimal = (char *)malloc(sizeof(char) * 100);
-	while (dic != 0)
-	{
-		rest = (dic % 16);
-		if (rest < 10)
-			hexadecimal[i] = rest + 48;
-		else
-			hexadecimal[i] = rest + 55;
-		dic = dic / 16;
-		i++;
-	}
+	hexadecimal = (char *)malloc(sizeof(char) * 100);
+	if (dic == 0)
+		hexadecimal[i++] = '0';
+	else
+		while (dic != 0)
+		{
+			rest = (dic % 16);
+			if (rest < 10)
+				hexadecimal[i] = rest + 48;
+			else
+				hexadecimal[i] = rest + 55;
+			dic = dic / 16;
+			i++;
+		}
 	hexadecimal[i] = '\0';
 	ft_strrev(hexadecimal);
-    return (hexadecimal);
+	return (hexadecimal);
 }
 
-char *ft_decimaltohex(int dic)
+char	*ft_decimaltolowerx(unsigned int dic)
 {
-	char *hexadecimal;
-	int i;
-	int rest;
-
+	char	*hexadecimal;
+	int		i;
+	int		rest;
 
 	i = 0;
-    hexadecimal = (char *)malloc(sizeof(char) * 100);
-	while (dic != 0)
-	{
-		rest = (dic % 16);
-		if (rest < 10)
-			hexadecimal[i] = rest + 48;
-		else
-			hexadecimal[i] = rest + 87;
-		dic = dic / 16;
-		i++;
-	}
+	hexadecimal = (char *)malloc(sizeof(char) * 17);
+	if (dic == 0)
+		hexadecimal[i++] = '0';
+	else
+		while (dic != 0)
+		{
+			rest = (dic % 16);
+			if (rest < 10)
+				hexadecimal[i] = rest + 48;
+			else
+				hexadecimal[i] = rest + 87;
+			dic = dic / 16;
+			i++;
+		}
 	hexadecimal[i] = '\0';
-    ft_strrev(hexadecimal);
-    return (hexadecimal);
+	ft_strrev(hexadecimal);
+	return (hexadecimal);
 }
 
-char *ft_addriss(int dic)
+char	*ft_addriss(unsigned long dic)
 {
-	char *addriss;
-	int i;
-	int rest;
-
+	char	*addriss;
+	int		i;
+	int		rest;
 
 	i = 0;
-    addriss = (char *)malloc(sizeof(char) * 100);
-	while (dic != 0)
-	{
-		rest = (dic % 16);
-		if (rest < 10)
-			addriss[i] = rest + 48;
-		else
-			addriss[i] = rest + 87;
-		dic = dic / 16;
-		i++;
-	}
+	addriss = (char *)malloc(sizeof(char) * 17);
+	if (dic == 0)
+		addriss[i++]	= '0';
+	else
+		while (dic != 0)
+		{
+			rest = (dic % 16);
+			if (rest < 10)
+				addriss[i] = rest + 48;
+			else
+				addriss[i] = rest + 87;
+			dic = dic / 16;
+			i++;
+		}
 	addriss[i] = '\0';
-    ft_strrev(addriss);
+	ft_strrev(addriss);
 	return (addriss);
 }
 
-void  ft_print_hex(const char *s, int dic)
+char 	*ft_pointer(void *p, t_print *val)
 {
-	char *ptr;
+	unsigned long hex;
 
-	if (ft_check_arg(s) == 'p')
-	{
-		ptr = ft_addriss(dic);
-		ft_putstr("0x7fff");
-	}
-    else if (ft_check_arg(s) == 'x')
-        ptr = ft_decimaltohex(dic);
-    else if (ft_check_arg(s) == 'X')
-        ptr = ft_decimaltoHEX(dic);
-	ft_putstr(ptr);
+	hex = (unsigned long)p;
+	ft_putstr("0x", val);
+	return (ft_addriss(hex));
+}
+
+char 	*ft_pointer_flags(void *p, t_print *val)
+{
+	unsigned long hex;
+
+	hex = (unsigned long)p;
+	return (ft_addriss(hex));
+}
+
+void	ft_print_hex(const char *s, unsigned long dic, t_print *val)
+{
+	char	*ptr;
+
+	ptr = NULL;
+	if (ft_check_arg(s) == 'x')
+		ptr = ft_decimaltolowerx(dic);
+	else if (ft_check_arg(s) == 'X')
+		ptr = ft_decimaltoupperx(dic);
+	ft_putstr(ptr, val);
 	free(ptr);
 }

@@ -12,7 +12,8 @@
 
 #include "libft.h"
 
-void	ft_putchar(const char c)
+void	ft_putchar(const char c, t_print *val)
 {
 	write(1, &c, 1);
+	val->count += 1;
 }

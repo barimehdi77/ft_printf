@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_putunsignednbr(unsigned int n)
+void	ft_putunsignednbr(unsigned int n, t_print *val)
 {
 	unsigned int	size;
 	unsigned int	temp;
@@ -24,7 +24,7 @@ void	ft_putunsignednbr(unsigned int n)
 	temp = n;
 	while (size)
 	{
-		ft_putchar((temp / size) + '0');
+		ft_putchar((temp / size) + '0', val);
 		temp %= size;
 		size /= 10;
 	}

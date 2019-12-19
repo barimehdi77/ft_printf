@@ -13,89 +13,92 @@
 #include "../libft/libft.h"
 #include "../includes/libftprintf.h"
 
-void ft_call_s(va_list arg, char *s)
+void	ft_call_s(va_list arg, char *s, t_print *val)
 {
-    int size;
-    char *valofarg;
+	int		size;
+	char	*valofarg;
 
-    size = 0;
-    valofarg = va_arg(arg, char *);
-    if (valofarg == NULL)
-        ft_putstr("(null)");
-    size = ft_atoi(s) - ft_strlen(valofarg);
-    ft_addespace(size, ' ');
-    ft_putstr(valofarg);
+	size = 0;
+	valofarg = va_arg(arg, char *);
+	if (valofarg == NULL)
+		ft_putstr("(null)", val);
+	size = ft_atoi(s) - ft_strlen(valofarg);
+	ft_addespace(size, ' ', val);
+	ft_putstr(valofarg, val);
 }
 
-void ft_call_c(va_list arg, char *s)
+void	ft_call_c(va_list arg, char *s, t_print *val)
 {
-    int size;
-    char c;
+	int		size;
+	char	c;
 
-    size = 0;
-    c = va_arg(arg, int);
-    size = ft_atoi(s) - 1;
-    ft_addespace(size, ' ');
-    ft_putchar(c);
+	size = 0;
+	c = va_arg(arg, int);
+	size = ft_atoi(s) - 1;
+	ft_addespace(size, ' ', val);
+	ft_putchar(c, val);
 }
 
-void ft_call_number(va_list arg, char *s)
+void	ft_call_number(va_list arg, char *s, t_print *val)
 {
-    int size;
-    int valofarg;
+	int		size;
+	int		valofarg;
 
-    size = 0;
-    valofarg = va_arg(arg, int);
-    size = ft_atoi(s) - ft_strlen(ft_itoa(valofarg));
-    ft_addespace(size, ' ');
-    ft_putnbr(valofarg);
+	size = 0;
+	valofarg = va_arg(arg, int);
+	size = ft_atoi(s) - ft_strlen(ft_itoa(valofarg));
+	ft_addespace(size, ' ', val);
+	ft_putnbr(valofarg, val);
 }
 
-void ft_call_x(va_list arg, char *s)
+void	ft_call_x(va_list arg, char *s, t_print *val)
 {
-    int size;
-    char *valofarg;
+	int		size;
+	char	*valofarg;
 
-    size = 0;
-    valofarg = ft_decimaltohex(va_arg(arg, int));
-    size = ft_atoi(s) - ft_strlen(valofarg);
-    ft_addespace(size, ' ');
-    ft_putstr(valofarg);
+	size = 0;
+	valofarg = ft_decimaltolowerx(va_arg(arg, int));
+	size = ft_atoi(s) - ft_strlen(valofarg);
+	ft_addespace(size, ' ', val);
+	ft_putstr(valofarg, val);
+	free(valofarg);
 }
 
-void ft_call_p(va_list arg, char *s)
+void	ft_call_p(va_list arg, char *s, t_print *val)
 {
-    int size;
-    char *valofarg;
+	int		size;
+	char	*valofarg;
 
-    size = 0;
-    valofarg = ft_addriss(va_arg(arg, int));
-    size = ft_atoi(s) - ft_strlen(valofarg) - 6;
-    ft_addespace(size, ' ');
-    ft_putstr("0x7fff");
-    ft_putstr(valofarg);
+	size = 0;
+	valofarg = ft_pointer_flags(va_arg(arg, void *), val);
+	size = ft_atoi(s) - ft_strlen(valofarg) - 2;
+	ft_addespace(size, ' ', val);
+	ft_putstr("0x", val);
+	ft_putstr(valofarg, val);
+	free(valofarg);
 }
 
-void ft_call_X(va_list arg, char *s)
+void	ft_call_X(va_list arg, char *s, t_print *val)
 {
-    int size;
-    char *valofarg;
+	int		size;
+	char	*valofarg;
 
-    size = 0;
-    valofarg = ft_decimaltoHEX(va_arg(arg, int));
-    size = ft_atoi(s) - ft_strlen(valofarg);
-    ft_addespace(size, ' ');
-    ft_putstr(valofarg);
+	size = 0;
+	valofarg = ft_decimaltoupperx(va_arg(arg, int));
+	size = ft_atoi(s) - ft_strlen(valofarg);
+	ft_addespace(size, ' ', val);
+	ft_putstr(valofarg, val);
+	free(valofarg);
 }
 
-void ft_call_percent(char *s)
+void	ft_call_percent(char *s, t_print *val)
 {
-    int size;
-    char percent;
+	int		size;
+	char	percent;
 
-    size = 0;
-    percent = '%';
-    size = ft_atoi(s) - 1;
-    ft_addespace(size, ' ');
-    ft_putchar(percent);
+	size = 0;
+	percent = '%';
+	size = ft_atoi(s) - 1;
+	ft_addespace(size, ' ', val);
+	ft_putchar(percent, val);
 }
