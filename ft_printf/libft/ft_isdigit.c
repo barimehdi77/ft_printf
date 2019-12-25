@@ -12,9 +12,17 @@
 
 #include "libft.h"
 
-int		ft_isdigit(int c)
+int		ft_isdigit(int c, t_print *val)
 {
-	if (c > '0' && c <= '9')
-		return (1);
+	if (val->point == ON)
+	{
+		if (c >= '0' && c <= '9')
+			return (1);
+	}
+	else if (val->point == OFF)
+	{
+		if (c > '0' && c <= '9')
+			return (1);
+	}
 	return (0);
 }

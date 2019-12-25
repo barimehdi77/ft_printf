@@ -13,8 +13,9 @@
 #include "../libft/libft.h"
 #include "../includes/libftprintf.h"
 
-void    ft_normal_forms(va_list arg, char *s, t_print *val)
+void    ft_normal_forms(va_list arg, const char *s, t_print *val)
 {
+	ft_flags_count( s, val);
     if (*s == '%')
 		ft_putchar('%', val);
 	else if (*s == 'c')

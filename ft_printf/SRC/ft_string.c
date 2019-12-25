@@ -14,68 +14,14 @@
 #include "../libft/libft.h"
 #include "../includes/libftprintf.h"
 
-int ft_numberofzeros(char *valofarg, char *s)
-{
-	int size;
-
-	size = 0;
-	size = ft_atoi(s) - ft_strlen(valofarg);
-	return (size);
-}
-
-void ft_call_point_s(va_list arg, char *s, t_print *val)
-{
-	int size;
-	int size1;
-	int i;
-	int j;
-	char *valofarg;
-
-	i = -1;
-	j = 0;
-	valofarg = va_arg(arg, char *);
-	if (valofarg == NULL)
-		valofarg = "(null)";
-	size1 = ft_numberofzeros(valofarg, s);
-	while (s[j] != '.')
-		j++;
-	j++;
-	size = ft_atoi((s + j));
-	ft_addespace(size1, '0', val);
-	while (size-- != 0 && valofarg[++i] != '\0')
-		ft_putchar(valofarg[i], val);
-}
-
-int		ft_two_flags(char *s)
+void	ft_print_string(int size, char *str, t_print *val)
 {
 	int i;
 
 	i = 0;
-	while (*s != 's')
+	while (size > i && str[i] != '\0')
 	{
-		if (*s == '.')
-			i++;
-		s++;
+		ft_putchar(str[i], val);
+		i++;
 	}
-	return (i);
-}
-
-void	ft_call_zero_or_point_s(va_list arg, char *s, t_print *val)
-{
-	int		size;
-	int		i;
-	char	*valofarg;
-
-	if (ft_two_flags(s) != 1)
-	{
-		i = -1;
-		valofarg = va_arg(arg, char *);
-		if (valofarg == NULL)
-			valofarg = "(null)";
-		size = ft_atoi((s));
-		while (size-- != 0 && valofarg[++i] != '\0')
-			ft_putchar(valofarg[i], val);
-	}
-	else
-		ft_call_point_s(arg, s, val);
 }
