@@ -13,7 +13,7 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include "../includes/libftprintf.h"
+# include "../includes/libftprintf.h"
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -44,7 +44,7 @@ int			ft_atoi(const char *str);
 int			ft_isalnum(int a);
 int			ft_isalpha(int c);
 int			ft_isascii(int asci);
-int		ft_isdigit(int c, t_print *val);
+int			ft_isdigit(int c, t_print *val);
 int			ft_isprint(int p);
 char		*ft_strchr(const char *str, int c);
 size_t		ft_strlen(const char *str);

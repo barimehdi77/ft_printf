@@ -13,129 +13,56 @@
 #include "../libft/libft.h"
 #include "../includes/libftprintf.h"
 
-void    ft_one_star_s(va_list arg, char *s, t_print *val)
-{
-	int espace;
-	int numberofchar;
-	int i;
-	char *valofarg;
-	
-	i = 0;
-	espace = va_arg(arg, int);
-	numberofchar = ft_atoi(s);
-	valofarg = va_arg(arg, char *);
-	if (valofarg == NULL)
-		valofarg = "(null)";
-	if (valofarg[0] == '\0')
-		ft_addespace(espace, ' ', val);
-	else
-		ft_addespace((espace - numberofchar), ' ', val);
-	while (numberofchar != 0 && valofarg[i] != '\0')
-	{
-		ft_putchar(valofarg[i], val);
-		numberofchar--;
-		i++;
-	}
-}
-
-void    ft_one_star_d_i(va_list arg, char *s, t_print *val)
-{
-	int espace;
-	int zeros;
-	int size;
-	int valofarg;
-
-	espace = va_arg(arg, int);
-	zeros = ft_atoi(s);
-	valofarg = va_arg(arg, int);
-	if (valofarg < 0)
-	{
-		valofarg *= -1;
-		espace--;
-		ft_addespace((espace - zeros), ' ', val);
-		ft_putchar('-', val);
-	}
-	else
-		ft_addespace((espace - zeros), ' ', val);
-	size = ft_strlen(ft_itoa(valofarg));
-	ft_addespace((zeros - size), '0', val);
-	ft_putnbr(valofarg, val);
-}
-
-void    ft_one_star_hex(va_list arg, char *s, t_print *val)
-{
-	int espace;
-	int zeros;
-	int size;
-	int valofarg;
-
-	espace = va_arg(arg, int);
-	zeros = ft_atoi(s);
-	valofarg = va_arg(arg, int);
-	size = ft_strlen(ft_itoa(valofarg));
-	ft_addespace((espace - zeros), ' ', val);
-	ft_addespace((zeros - size), '0', val);
-	ft_print_hex(s, valofarg, val);
-}
-
-void    ft_one_star_u(va_list arg, char *s, t_print *val)
+void	ft_star_number(va_list arg, char *s, t_print *val)
 {
 	int		espace;
-	int 	zeros;
-	int 	size;
-	int		valofarg;
+	int		zeros;
+	int		size;
+	t_args	value;
 
 	espace = va_arg(arg, int);
-	zeros = ft_atoi(s);
-	valofarg = va_arg(arg, int);
-	if (valofarg < 10)
+	zeros = ft_atoi(s + 2);
+	value = ft_arg(arg, val);
+	size = 1;
+	if (value.int_str == NUMBER)
+		size = ft_strlen(ft_itoa(value.number));
+	else if (value.int_str == STRING)
+		size = ft_strlen(value.string);
+	if (value.number < 0)
+		return (ft_neg_number(value.number, espace, zeros, val));
+	if (val->type == 's')
+		return (ft_star_string(espace, zeros, value.string, val));
+	ft_addespace((espace - zeros), ' ', val);
+	if (value.number == 0 && zeros == 0)
+		return ;
+	ft_addespace((zeros - size), '0', val);
+	ft_print_arg(&value, val);
+	if (espace < 0)
+		ft_addespace(((-espace) - zeros), ' ', val);
+}
+
+void	ft_neg_number(int value, int espace, int zeros, t_print *val)
+{
+	int		size;
+
+	size = ft_strlen(ft_itoa(value));
+	if (val->type == 'd' || val->type == 'i')
 	{
-		size = 10;
-		zeros = 10;
+		ft_addespace((espace - zeros) - 1, ' ', val);
+		size--;
+		ft_putchar('-', val);
+		value *= -1;
+		ft_addespace((zeros - size), '0', val);
+		ft_putnbr(value, val);
 	}
-	else
-		size = ft_strlen(ft_itoa(valofarg));
-	ft_addespace((espace - zeros), ' ', val);
-	ft_addespace((zeros - size), '0', val);
-	ft_putunsignednbr(valofarg, val);
-}
-
-void    ft_one_star_c(va_list arg, t_print *val)
-{
-	int espace;
-	char valofarg;
-
-	espace = va_arg(arg, int);
-	valofarg = va_arg(arg, int);
-	ft_addespace((espace - 1), ' ', val);
-	ft_putchar(valofarg, val);
-}
-
-void    ft_one_star_percent(va_list arg, t_print *val)
-{
-	int espace;
-	char valofarg;
-
-	espace = va_arg(arg, int);
-	valofarg = '%';
-	ft_addespace((espace - 1), ' ', val);
-	ft_putchar(valofarg, val);
-}
-
-void    ft_one_star_p(va_list arg, char *s, t_print *val)
-{
-	int espace;
-	int zeros;
-	int size;
-	char *valofarg;
-
-	espace = va_arg(arg, int) - 2;
-	zeros = ft_atoi(s);
-	valofarg = ft_pointer(va_arg(arg, void *), val);
-	size = ft_strlen(valofarg);
-	ft_addespace((espace - zeros), ' ', val);
-	ft_putstr("0x", val);
-	ft_addespace((zeros - size), '0', val);
-	ft_putstr(valofarg, val);
-	free(valofarg);
+	else if (val->type == 'u')
+	{
+		if (value < 0)
+			size = 10;
+		else
+			size = ft_strlen(ft_itoa(value));
+		ft_addespace((espace - zeros) - 1, ' ', val);
+		ft_addespace((zeros - size), '0', val);
+		ft_putunsignednbr(value, val);
+	}
 }

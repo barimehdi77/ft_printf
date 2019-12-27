@@ -31,7 +31,7 @@ char	*ft_decimaltohex(unsigned long dic, char type)
 				hexadecimal[i] = rest + 48;
 			else if (type == 'X')
 				hexadecimal[i] = rest + 55;
-			else if (type == 'x'  || type == 'p')
+			else if (type == 'x' || type == 'p')
 				hexadecimal[i] = rest + 87;
 			dic = dic / 16;
 			i++;
@@ -41,9 +41,9 @@ char	*ft_decimaltohex(unsigned long dic, char type)
 	return (hexadecimal);
 }
 
-char 	*ft_pointer(void *p, t_print *val)
+char	*ft_pointer(void *p, t_print *val)
 {
-	unsigned long hex;
+	unsigned long	hex;
 
 	hex = (unsigned long)p;
 	ft_putstr("0x", val);
