@@ -6,7 +6,7 @@
 #    By: mbari <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/30 09:48:13 by mbari             #+#    #+#              #
-#    Updated: 2019/11/13 22:08:17 by mbari            ###   ########.fr        #
+#    Updated: 2019/12/28 13:22:07 by mbari            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = libftprintf.a
 
-INCLUDES = ./includes/*.h
+INCLUDES = ./includes/libftprintf.h ./libft/libft.h
 
 NAMELIB = libft.a
 

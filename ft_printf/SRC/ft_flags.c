@@ -6,7 +6,7 @@
 /*   By: mbari <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 21:54:06 by mbari             #+#    #+#             */
-/*   Updated: 2019/12/15 21:54:08 by mbari            ###   ########.fr       */
+/*   Updated: 2019/12/28 13:24:26 by mbari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,31 +77,6 @@ void	ft_print_point(va_list arg, char *s, t_print *val)
 		ft_point_star(arg, val);
 	else if (val->point == POINT_NUMBER)
 		ft_with_point(arg, s, val, '0');
-}
-
-void	ft_print(va_list arg, char *s, t_print *val)
-{
-	char *ptr;
-
-	ptr = NULL;
-	if (val->type == 'c')
-		ft_putchar(va_arg(arg, int), val);
-	else if (val->type == 's')
-		ft_putstr(va_arg(arg, char *), val);
-	else if (val->type == 'd' || val->type == 'i')
-		ft_putnbr(va_arg(arg, int), val);
-	else if (val->type == 'u')
-		ft_putunsignednbr(va_arg(arg, int), val);
-	else if (val->type == 'x' || val->type == 'X')
-		ft_print_hex(s, va_arg(arg, int), val);
-	else if (val->type == 'p')
-	{
-		ptr = ft_pointer(va_arg(arg, void *), val);
-		ft_putstr(ptr, val);
-		free(ptr);
-	}
-	else if (val->type == '%')
-		ft_putchar('%', val);
 }
 
 void	ft_just_point(va_list arg, t_print *val)

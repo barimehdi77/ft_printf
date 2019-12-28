@@ -6,7 +6,7 @@
 /*   By: mbari <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 05:45:33 by mbari             #+#    #+#             */
-/*   Updated: 2019/12/23 05:45:34 by mbari            ###   ########.fr       */
+/*   Updated: 2019/12/28 13:25:18 by mbari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,16 @@ void	ft_negative_number(int value, int espace, t_print *val, char type)
 {
 	int		size;
 
+	size = ft_strlen(ft_itoa(value));
 	if (val->type == 'd' || val->type == 'i')
 	{
 		if (espace == 0 && value == 0)
 			return ;
-		size = ft_strlen(ft_itoa(value));
 		if (value < 0 && type == '0')
 		{
 			ft_putchar('-', val);
 			value *= -1;
-			if (val->point == POINT_NUMBER)
-				size--;
+			(val->point == POINT_NUMBER) ? (size--) : (size);
 		}
 		if (val->point == NUMBER_POINT && value == 0)
 			size = 0;
@@ -101,15 +100,11 @@ void	ft_negative_number(int value, int espace, t_print *val, char type)
 	}
 	else if (val->type == 'u')
 	{
-		if (value < 0)
-			size = 10;
-		else
-			size = ft_strlen(ft_itoa(value));
+		(value < 0) ? (size = 10) : (size);
 		ft_addespace(espace - size, type, val);
 		ft_putunsignednbr(value, val);
 	}
-	if (espace < 0)
-		ft_addespace((-espace) - size, ' ', val);
+	(espace < 0) ? (ft_addespace((-espace) - size, ' ', val)) : NULL;
 }
 
 void	ft_with_point(va_list arg, char *s, t_print *val, char type)
@@ -122,24 +117,20 @@ void	ft_with_point(va_list arg, char *s, t_print *val, char type)
 	if (*s == '-')
 		s++;
 	espace = ft_atoi(s + 1);
-	size = 1;
+	size = ft_value_len(&valofarg, val);
 	if (val->type != '%')
 	{
 		if (val->type == 'd' || val->type == 'i' || val->type == 'u')
 			return (ft_negative_number(valofarg.number, espace, val, type));
 		else if (val->type == 'p')
 		{
-			size = ft_strlen(valofarg.string);
 			ft_addespace(espace - size - 2, type, val);
 			ft_putstr("0x", val);
 		}
 		else if (val->type == 's')
 			return (ft_print_string(espace, valofarg.string, val));
 		else
-		{
-			size = ft_value_len(&valofarg, val);
 			ft_addespace(espace - size, type, val);
-		}
 	}
 	ft_print_arg(&valofarg, val);
 }

@@ -6,7 +6,7 @@
 /*   By: mbari <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 01:16:56 by mbari             #+#    #+#             */
-/*   Updated: 2019/12/02 00:17:23 by mbari            ###   ########.fr       */
+/*   Updated: 2019/12/28 13:24:53 by mbari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		ft_printf(const char *s, ...)
 			ft_set_val(&val);
 			if (CSPER_FORMS || DIU_FORMS || HEXP_FORMS)
 				ft_normal_forms(arg, (s + i), &val);
-			else if (WHITH_FLAGS || WITH_FLAG)
+			else if (WHITH_FLAGS || WITH_FLAG || STAR_FLAG)
 				ft_flags(arg, (s + i), &val);
 			i += ft_skip((char *)(s + i));
 		}

@@ -6,7 +6,7 @@
 /*   By: mbari <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 03:29:24 by mbari             #+#    #+#             */
-/*   Updated: 2019/12/25 03:29:26 by mbari            ###   ########.fr       */
+/*   Updated: 2019/12/28 13:24:31 by mbari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	ft_double_numbers(va_list arg, char *s, t_print *val)
 		return (ft_double_number_neg(espace, zeros, &value, val));
 	else if (value.number == 0 && zeros == 0)
 	{
-		if (espace < 0)
-			espace *= -1;
+		(espace < 0) ? (espace *= -1) : (espace *= 1);
 		return (ft_addespace(espace, ' ', val));
 	}
 	else if (val->type == 's')
@@ -52,6 +51,7 @@ void	ft_double_number_neg(int espace, int zeros, t_args *value, t_print *val)
 	{
 		size--;
 		espace--;
+		(zeros < size) ? (zeros = size) : (zeros);
 		ft_addespace(espace - zeros, ' ', val);
 		ft_putchar('-', val);
 		ft_addespace(zeros - size, '0', val);
@@ -68,7 +68,7 @@ void	ft_double_number_s(int espace, int zeros,
 	char	*str;
 
 	str = valofarg->string;
-	size = 0;
+	size = ft_strlen(str);
 	if (str == NULL)
 	{
 		str = "(null)";
@@ -82,9 +82,7 @@ void	ft_double_number_s(int espace, int zeros,
 		ft_addespace(espace, ' ', val);
 	else
 	{
-		size = ft_strlen(str);
-		if (size < zeros)
-			zeros = size;
+		(size < zeros) ? (zeros = size) : (zeros);
 		ft_addespace(espace - zeros, ' ', val);
 		ft_print_string(zeros, str, val);
 	}
@@ -93,12 +91,30 @@ void	ft_double_number_s(int espace, int zeros,
 		ft_addespace((-espace) - zeros, ' ', val);
 }
 
-int		ft_skip_number(char *s)
+t_args	ft_arg(va_list arg, t_print *val)
 {
-	int		skip;
+	t_args	ret;
 
-	skip = ft_strlen(ft_itoa(ft_atoi(s)));
-	if (*s == '0')
-		skip++;
-	return (skip);
+	ft_initialized(&ret);
+	ret.int_str = CHAR;
+	if (val->type == 'c')
+		ret.number = va_arg(arg, int);
+	else if (val->type == 's')
+		ret.string = va_arg(arg, char *);
+	else if (val->type == 'd' || val->type == 'i' || val->type == 'u')
+		ret.number = va_arg(arg, int);
+	else if (val->type == 'x' || val->type == 'X')
+		ret.string = ft_decimaltohex(va_arg(arg, int), val->type);
+	else if (val->type == 'p')
+		ret.string = ft_decimaltohex((unsigned long)va_arg(arg, void *),
+			val->type);
+	else if (val->type == '%')
+		ret.number = '%';
+	if (val->type == 's' || val->type == 'x' ||
+			val->type == 'X' || val->type == 'p')
+		ret.int_str = STRING;
+	else if (val->type == 'd' || val->type == 'i' || val->type == 'u')
+		ret.int_str = NUMBER;
+	(ret.int_str == STRING) ? (ret.number = 1) : (ret.number);
+	return (ret);
 }
