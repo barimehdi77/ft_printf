@@ -24,3 +24,17 @@ void	ft_addespace(int size, char c, t_print *val)
 		}
 	}
 }
+
+void	ft_rest(int espace, char type, int value, t_print *val)
+{
+	int			size;
+
+	size = ft_strlen(ft_itoa(value));
+	if (val->type == 'u')
+	{
+		(value < 0) ? (size = 10) : (size);
+		ft_addespace(espace - size, type, val);
+		ft_putunsignednbr(value, val);
+	}
+	(espace < 0) ? (ft_addespace((-espace) - size, ' ', val)) : NULL;
+}

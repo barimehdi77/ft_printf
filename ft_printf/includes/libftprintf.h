@@ -16,6 +16,7 @@
 # include <stdarg.h>
 # include <string.h>
 # include <stdio.h>
+# include <limits.h>
 
 typedef	struct	s_print
 {
@@ -95,12 +96,12 @@ void			ft_star_string(int espace, int size, char *str, t_print *val);
 void			ft_just_star(va_list arg, t_print *val);
 void			ft_left(va_list arg, char *s, t_print *val);
 void			ft_with_zeros(va_list arg, char *s, t_print *val, char type);
-void			ft_with_string(int espace, char type, t_args *value,
-					t_print *val);
+void			ft_with_string(char *s, char type, t_args *value, t_print *val);
 void			ft_negative_number(int value, int espace,
 					t_print *val, char type);
 void			ft_with_point(va_list arg, char *s, t_print *val, char type);
 void			ft_star_number(va_list arg, char *s, t_print *val);
 void			ft_neg_number(int value, int espace, int zeros, t_print *val);
+void			ft_rest(int espace, char type, int value, t_print *val);
 
 #endif

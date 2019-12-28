@@ -55,7 +55,7 @@ void	ft_with_zeros(va_list arg, char *s, t_print *val, char type)
 		ft_putstr("0x", val);
 	}
 	else if (val->type == 's' && val->point == NUMBER_POINT)
-		return (ft_with_string(espace, type, &valofarg, val));
+		return (ft_with_string(s, type, &valofarg, val));
 	else
 	{
 		size = ft_value_len(&valofarg, val);
@@ -66,23 +66,29 @@ void	ft_with_zeros(va_list arg, char *s, t_print *val, char type)
 		ft_addespace((-espace) - size, ' ', val);
 }
 
-void	ft_with_string(int espace, char type, t_args *value, t_print *val)
+void	ft_with_string(char *s, char type, t_args *value, t_print *val)
 {
+	int		espace;
 	char	*str;
 
+	if (*s == '0')
+		type = '0';
+	espace = ft_atoi(s);
 	str = value->string;
 	ft_addespace(espace, type, val);
 	if (espace < 0)
-		ft_addespace(-espace, ' ', val);
+		ft_addespace(-espace, type, val);
 	if (str == NULL || str[0] == '\0')
 		return ;
 }
 
 void	ft_negative_number(int value, int espace, t_print *val, char type)
 {
-	int		size;
+	unsigned int	number;
+	int				size;
 
 	size = ft_strlen(ft_itoa(value));
+	number = value;
 	if (val->type == 'd' || val->type == 'i')
 	{
 		if (espace == 0 && value == 0)
@@ -90,28 +96,25 @@ void	ft_negative_number(int value, int espace, t_print *val, char type)
 		if (value < 0 && type == '0')
 		{
 			ft_putchar('-', val);
-			value *= -1;
+			number = -value;
 			(val->point == POINT_NUMBER) ? (size--) : (size);
 		}
 		if (val->point == NUMBER_POINT && value == 0)
 			size = 0;
 		ft_addespace(espace - size, type, val);
-		(size == 0) ? size : ft_putnbr(value, val);
+		if (type == '0')
+			(size == 0) ? size : ft_putunsignednbr(number, val);
+		else
+			(size == 0) ? size : ft_putnbr(value, val);
 	}
-	else if (val->type == 'u')
-	{
-		(value < 0) ? (size = 10) : (size);
-		ft_addespace(espace - size, type, val);
-		ft_putunsignednbr(value, val);
-	}
-	(espace < 0) ? (ft_addespace((-espace) - size, ' ', val)) : NULL;
+	ft_rest(espace, type, value, val);
 }
 
 void	ft_with_point(va_list arg, char *s, t_print *val, char type)
 {
-	int		espace;
-	int		size;
-	t_args	valofarg;
+	int			espace;
+	int			size;
+	t_args		valofarg;
 
 	valofarg = ft_arg(arg, val);
 	if (*s == '-')

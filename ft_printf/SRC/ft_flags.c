@@ -84,9 +84,22 @@ void	ft_just_point(va_list arg, t_print *val)
 	t_args value;
 
 	value = ft_arg(arg, val);
+	if (val->type == 'p' && value.string[0] == '0' && value.string[1] == '\0')
+		return (ft_putstr("0x", val));
+	else if (val->type == 'p' && value.string[0] != '0' &&
+					value.string[1] != '\0')
+		ft_putstr("0x", val);
 	if (val->type == 's')
 		return ;
-	if (value.number == 0)
-		return ;
+	if (value.int_str == NUMBER)
+	{
+		if (value.number == 0)
+			return ;
+	}
+	else if (value.int_str == STRING)
+	{
+		if (value.string[0] == '0' && value.string[1] == '\0')
+			return ;
+	}
 	ft_print_arg(&value, val);
 }

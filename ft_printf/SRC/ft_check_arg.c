@@ -72,6 +72,7 @@ void	ft_double_star(va_list arg, t_print *val)
 	size = ft_value_len(&value, val);
 	if (val->type != 's')
 		(zeros == 0) ? (zeros = size) : (zeros);
+	(zeros < 0) ? (zeros = size) : (zeros);
 	if (val->type == 's')
 		return (ft_double_str(value.string, espace, zeros, val));
 	ft_addespace(espace - zeros, ' ', val);
