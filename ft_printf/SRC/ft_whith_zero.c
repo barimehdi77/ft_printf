@@ -45,25 +45,36 @@ void	ft_with_zeros(va_list arg, char *s, t_print *val, char type)
 
 	valofarg = ft_arg(arg, val);
 	espace = ft_atoi(s);
-	size = 1;
+	size = ft_value_len(&valofarg, val);
 	if (val->type == 'd' || val->type == 'i' || val->type == 'u')
 		return (ft_negative_number(valofarg.number, espace, val, type));
 	else if (val->type == 'p')
-	{
-		size = ft_strlen(valofarg.string);
-		ft_addespace(espace - size - 2, type, val);
-		ft_putstr("0x", val);
-	}
+		return (ft_with_zeros_p(espace, type, valofarg.string, val));
 	else if (val->type == 's' && val->point == NUMBER_POINT)
 		return (ft_with_string(s, type, &valofarg, val));
 	else
-	{
-		size = ft_value_len(&valofarg, val);
 		ft_addespace(espace - size, type, val);
-	}
 	ft_print_arg(&valofarg, val);
 	if (espace < 0)
 		ft_addespace((-espace) - size, ' ', val);
+}
+
+void	ft_with_zeros_p(int espace, char type, char *s, t_print *val)
+{
+	int		size;
+
+	size = ft_strlen(s);
+	if ((s[0] == '0' && s[1] == '\0') &&
+			(val->point == NUMBER_POINT || val->point == STAR_POINT))
+	{
+		size--;
+		ft_addespace(espace - size - 2, type, val);
+		ft_putstr("0x", val);
+		return ;
+	}
+	ft_addespace(espace - size - 2, type, val);
+	ft_putstr("0x", val);
+	ft_putstr(s, val);
 }
 
 void	ft_with_string(char *s, char type, t_args *value, t_print *val)
@@ -80,34 +91,6 @@ void	ft_with_string(char *s, char type, t_args *value, t_print *val)
 		ft_addespace(-espace, type, val);
 	if (str == NULL || str[0] == '\0')
 		return ;
-}
-
-void	ft_negative_number(int value, int espace, t_print *val, char type)
-{
-	unsigned int	number;
-	int				size;
-
-	size = ft_strlen(ft_itoa(value));
-	number = value;
-	if (val->type == 'd' || val->type == 'i')
-	{
-		if (espace == 0 && value == 0)
-			return ;
-		if (value < 0 && type == '0')
-		{
-			ft_putchar('-', val);
-			number = -value;
-			(val->point == POINT_NUMBER) ? (size--) : (size);
-		}
-		if (val->point == NUMBER_POINT && value == 0)
-			size = 0;
-		ft_addespace(espace - size, type, val);
-		if (type == '0')
-			(size == 0) ? size : ft_putunsignednbr(number, val);
-		else
-			(size == 0) ? size : ft_putnbr(value, val);
-	}
-	ft_rest(espace, type, value, val);
 }
 
 void	ft_with_point(va_list arg, char *s, t_print *val, char type)
@@ -132,8 +115,9 @@ void	ft_with_point(va_list arg, char *s, t_print *val, char type)
 		}
 		else if (val->type == 's')
 			return (ft_print_string(espace, valofarg.string, val));
-		else
-			ft_addespace(espace - size, type, val);
+		ft_addespace(espace - size, type, val);
 	}
+	if (espace == 0 && valofarg.string[0] == '0' && valofarg.string[1] == '\0')
+		return ;
 	ft_print_arg(&valofarg, val);
 }

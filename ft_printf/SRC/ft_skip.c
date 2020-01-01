@@ -42,6 +42,7 @@ void	ft_set_val(t_print *val)
 	val->whith = 0;
 	val->left = 0;
 	val->zeros = 0;
+	val->szero = ' ';
 }
 
 void	ft_flags(va_list arg, const char *s, t_print *val)

@@ -20,12 +20,12 @@ void	ft_select_flag(va_list arg, const char *s, t_print *val)
 		ft_which_point((char *)s, val);
 		ft_print_point(arg, (char *)s, val);
 	}
+	else if (val->star == ON && val->point == OFF)
+		ft_just_star(s, arg, val);
 	else if (val->whith == ON && *s != '0' && val->left == OFF)
 		ft_with_zeros(arg, (char *)s, val, ' ');
 	else if (val->zeros == ON && *s == '0')
 		ft_with_zeros(arg, (char *)s, val, '0');
-	else if (val->star == ON && val->point == OFF)
-		ft_just_star(arg, val);
 	else if (val->left == ON)
 		ft_left(arg, (char *)s, val);
 }
@@ -59,6 +59,7 @@ void	ft_which_point(char *s, t_print *val)
 
 void	ft_print_point(va_list arg, char *s, t_print *val)
 {
+	ft_iszero_left(s, val);
 	if (val->point == ON && val->star != 2)
 		ft_just_point(arg, val);
 	else if (val->star == 2)
@@ -77,6 +78,14 @@ void	ft_print_point(va_list arg, char *s, t_print *val)
 		ft_point_star(arg, val);
 	else if (val->point == POINT_NUMBER)
 		ft_with_point(arg, s, val, '0');
+}
+
+void	ft_iszero_left(char *s, t_print *val)
+{
+	if (*s == '0')
+		val->szero = '0';
+	if (*s == '-')
+		val->left = 2;
 }
 
 void	ft_just_point(va_list arg, t_print *val)

@@ -26,6 +26,8 @@ void	ft_double_numbers(va_list arg, char *s, t_print *val)
 	value = ft_arg(arg, val);
 	if (value.number < 0 && val->type != 'u')
 		return (ft_double_number_neg(espace, zeros, &value, val));
+	if (val->type == '%')
+		return (ft_print_percent(s, espace, val));
 	else if (value.number == 0 && zeros == 0)
 	{
 		(espace < 0) ? (espace *= -1) : (espace *= 1);
@@ -36,10 +38,20 @@ void	ft_double_numbers(va_list arg, char *s, t_print *val)
 	skip = ft_value_len(&value, val);
 	(skip > zeros) ? (zeros = skip) : (zeros);
 	ft_addespace(espace - zeros, ' ', val);
-	ft_addespace(zeros - skip, '0', val);
-	ft_print_arg(&value, val);
-	if (espace < 0)
-		ft_addespace((-espace) - zeros, ' ', val);
+	ft_double_numbers_rest((zeros - skip), &value, val);
+	ft_check_espace(espace, zeros, val);
+}
+
+void	ft_double_numbers_rest(int zeros, t_args *value, t_print *val)
+{
+	if (val->type == '%')
+		ft_addespace(zeros, ' ', val);
+	else
+		ft_addespace(zeros, '0', val);
+	if (zeros == 0 && value->string[0] == '0' && value->string[1] == '\0')
+		ft_putchar(' ', val);
+	else
+		ft_print_arg(value, val);
 }
 
 void	ft_double_number_neg(int espace, int zeros, t_args *value, t_print *val)
@@ -49,8 +61,7 @@ void	ft_double_number_neg(int espace, int zeros, t_args *value, t_print *val)
 	size = ft_value_len(value, val);
 	if (val->type == 'd' || val->type == 'i')
 	{
-		size--;
-		espace--;
+		zeros++;
 		(zeros < size) ? (zeros = size) : (zeros);
 		ft_addespace(espace - zeros, ' ', val);
 		ft_putchar('-', val);
@@ -74,21 +85,21 @@ void	ft_double_number_s(int espace, int zeros,
 		str = "(null)";
 		size = ft_strlen(str);
 		if (espace < zeros)
-			ft_addespace(espace - size, ' ', val);
-		ft_addespace(espace - zeros, ' ', val);
+			ft_addespace(espace - size, val->szero, val);
+		ft_addespace(espace - zeros, val->szero, val);
 		ft_print_string(zeros, str, val);
 	}
 	else if (str[0] == '\0')
-		ft_addespace(espace, ' ', val);
+		ft_addespace(espace, val->szero, val);
 	else
 	{
 		(size < zeros) ? (zeros = size) : (zeros);
-		ft_addespace(espace - zeros, ' ', val);
+		ft_addespace(espace - zeros, val->szero, val);
 		ft_print_string(zeros, str, val);
 	}
 	(zeros > size) ? (zeros = size) : (zeros);
 	if (espace < 0)
-		ft_addespace((-espace) - zeros, ' ', val);
+		ft_addespace((-espace) - zeros, val->szero, val);
 }
 
 t_args	ft_arg(va_list arg, t_print *val)
@@ -116,5 +127,6 @@ t_args	ft_arg(va_list arg, t_print *val)
 	else if (val->type == 'd' || val->type == 'i' || val->type == 'u')
 		ret.int_str = NUMBER;
 	(ret.int_str == STRING) ? (ret.number = 1) : (ret.number);
+	(ret.int_str == NUMBER) ? (ret.string = "NO") : (ret.string);
 	return (ret);
 }

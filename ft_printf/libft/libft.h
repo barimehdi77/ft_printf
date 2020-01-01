@@ -38,7 +38,7 @@ int			ft_intsize(int n);
 void		ft_putchar(const char c, t_print *val);
 void		ft_putstr(const char *s, t_print *val);
 void		ft_putendl(const char *s, t_print *val);
-void		ft_putnbr(int n, t_print *val);
+void		ft_putnbr(long long n, t_print *val);
 void		ft_putunsignednbr(unsigned int n, t_print *val);
 int			ft_atoi(const char *str);
 int			ft_isalnum(int a);

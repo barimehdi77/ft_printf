@@ -37,6 +37,7 @@ char	*ft_decimaltohex(unsigned long dic, char type)
 			i++;
 		}
 	hexadecimal[i] = '\0';
+	hexadecimal[8] = (type == 'X' || type == 'x') ? '\0' : hexadecimal[8];
 	ft_strrev(hexadecimal);
 	return (hexadecimal);
 }

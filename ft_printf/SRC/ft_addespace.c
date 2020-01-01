@@ -34,7 +34,10 @@ void	ft_rest(int espace, char type, int value, t_print *val)
 	{
 		(value < 0) ? (size = 10) : (size);
 		ft_addespace(espace - size, type, val);
-		ft_putunsignednbr(value, val);
+		if (value == 0 && val->point == 6)
+			ft_putchar(' ', val);
+		else
+			ft_putunsignednbr(value, val);
 	}
 	(espace < 0) ? (ft_addespace((-espace) - size, ' ', val)) : NULL;
 }
